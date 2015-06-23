@@ -39,6 +39,7 @@ public class Tabuleiro {
 		
 		tabuleiro[x][y] = jogadorAtual;
 		
+		proximoJogador();
 		setUlimaJogada(x, y);
 	}
 	
@@ -49,6 +50,7 @@ public class Tabuleiro {
 		int[] ultimo = this.ultimaJogada.pop();
 		
 		this.tabuleiro[ultimo[0]][ultimo[1]] = Peca.VAZIO;
+		proximoJogador();
 	}
 
 	public Peca proximoJogador() {
