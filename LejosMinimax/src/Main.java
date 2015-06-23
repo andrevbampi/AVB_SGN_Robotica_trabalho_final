@@ -5,8 +5,20 @@ import lejos.nxt.SensorPort;
 
 
 public class Main {
+	
 
 	public static void main(String[] args) throws InterruptedException {
+		
+		Celula[][] tabuleiro = new Celula[2][2];
+		tabuleiro[0][0].setCaminho(new char[] {'f','e','e','e','x','d','d','d','t'});
+		tabuleiro[0][1].setCaminho(new char[] {});
+		tabuleiro[0][2].setCaminho(new char[] {});
+		tabuleiro[1][0].setCaminho(new char[] {});
+		tabuleiro[1][1].setCaminho(new char[] {});
+		tabuleiro[1][2].setCaminho(new char[] {});
+		tabuleiro[2][0].setCaminho(new char[] {});
+		tabuleiro[2][1].setCaminho(new char[] {});
+		tabuleiro[2][2].setCaminho(new char[] {});
 
 		while (!Button.ENTER.isPressed());
 		
