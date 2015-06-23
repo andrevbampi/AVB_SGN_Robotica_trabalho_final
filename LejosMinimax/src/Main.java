@@ -6,6 +6,57 @@ import lejos.nxt.SensorPort;
 
 public class Main {
 	
+	private void colocarBolinha(Celula[][] tabuleiro, int x, int y) {
+		for (int i = 0; i < tabuleiro[x][y].getCaminho().length; i++) {
+			mover(tabuleiro[x][y].getCaminho()[i]);
+		}
+	}
+	
+	private void mover(char direcao) {
+		switch (direcao) {
+		case 'f':
+			//Mover pra frente
+			break;
+		case 't':
+			//mover pra trás
+			break;
+		case 'e':
+			//Mover pra esquerda
+			break;
+		case 'd':
+			//mover pra direita
+			break;
+		case 'x':
+			//soltar a bolinha (dar um giro de 360 graus no motor)
+			break;
+		}
+	}
+	
+	private void lerTabuleiro(Celula[][] tabuleiro, boolean primeiraVez) {
+		if(!primeiraVez) {
+			mover('f');
+		}
+		mover('d');
+		tabuleiro[2][2].setValor(0); //ler
+		mover('d');
+		tabuleiro[1][2].setValor(0); //ler
+		mover('d');
+		tabuleiro[0][2].setValor(0); //ler
+		mover('d');
+		tabuleiro[0][1].setValor(0); //ler
+		mover('d');
+		tabuleiro[0][0].setValor(0); //ler
+		mover('d');
+		tabuleiro[1][0].setValor(0); //ler
+		mover('d');
+		tabuleiro[2][0].setValor(0); //ler
+		mover('d');
+		tabuleiro[2][1].setValor(0); //ler
+		mover('f');
+		tabuleiro[1][1].setValor(0); //ler
+		mover('t');
+		mover('t');
+	}
 
 	public static void main(String[] args) throws InterruptedException {
 		
