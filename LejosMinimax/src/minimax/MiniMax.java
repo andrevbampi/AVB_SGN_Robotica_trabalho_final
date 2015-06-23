@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class MiniMax {
 
-	private int maxDepth = -1; // por padrão deixa sem um limite de profundidade
+	private int maxDepth = -1; // por padrao deixa sem um limite de profundidade
 	private Tabuleiro tabuleiro;
 	
 	public MiniMax() {
