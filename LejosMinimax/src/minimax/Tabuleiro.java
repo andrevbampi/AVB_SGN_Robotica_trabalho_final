@@ -4,21 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import lejos.nxt.ColorSensor;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
+import classes.Celula;
+
 public class Tabuleiro {
 
-	private Peca[][] tabuleiro;
+	private Celula[][] tabuleiro;
 	private Peca jogadorAtual = Peca.JOGADOR;
 	private Stack<int[]> ultimaJogada = new Stack<int[]>();
+	private ColorSensor color;
 	
 	public Tabuleiro() {
-		tabuleiro = new Peca[3][3];
+		color = new ColorSensor(SensorPort.S1);
+		tabuleiro = new Celula[3][3];
 		zerarTabuleiro();
+
+		tabuleiro[0][0].setCaminho(new char[] {'f','e','e','e','x','d','d','d','t'});
+		tabuleiro[0][1].setCaminho(new char[] {'f','f','f','x','t','t','t'});
+		tabuleiro[0][2].setCaminho(new char[] {'f','d','d','d','x','e','e','e','t'});
+		tabuleiro[1][0].setCaminho(new char[] {'f','e','e','x','d','d','t'});
+		tabuleiro[1][1].setCaminho(new char[] {'f','f','x','t','t'});
+		tabuleiro[1][2].setCaminho(new char[] {'f','d','d','x','e','e','t'});
+		tabuleiro[2][0].setCaminho(new char[] {'f','e','x','d','t'});
+		tabuleiro[2][1].setCaminho(new char[] {'f','x','t'});
+		tabuleiro[2][2].setCaminho(new char[] {'f','d','x','e','t'});
 	}
 	
-	public Peca[][] getTabuleiro() {
+	public Celula[][] getTabuleiro() {
 		return tabuleiro;
 	}
-	public void setTabuleiro(Peca[][] tabuleiro) {
+	public void setTabuleiro(Celula[][] tabuleiro) {
 		this.tabuleiro = tabuleiro;
 	}
 	
@@ -34,10 +51,10 @@ public class Tabuleiro {
 	}
 	
 	public void fazerJogada(int x, int y) {
-		if (tabuleiro[x][y] != Peca.VAZIO)
+		if (tabuleiro[x][y].getValor() != Peca.VAZIO)
 			throw new IllegalArgumentException("Jogada não permitida!");
 		
-		tabuleiro[x][y] = jogadorAtual;
+		tabuleiro[x][y].setValor(jogadorAtual);
 		
 		proximoJogador();
 		setUlimaJogada(x, y);
@@ -49,7 +66,7 @@ public class Tabuleiro {
 		
 		int[] ultimo = this.ultimaJogada.pop();
 		
-		this.tabuleiro[ultimo[0]][ultimo[1]] = Peca.VAZIO;
+		this.tabuleiro[ultimo[0]][ultimo[1]].setValor(Peca.VAZIO);
 		proximoJogador();
 	}
 
@@ -73,7 +90,7 @@ public class Tabuleiro {
 	public void zerarTabuleiro() {
 		for (int x = 0, len = this.tabuleiro.length; x < len; x++) {
 			for (int y = 0, lenY = this.tabuleiro[x].length; y < lenY; y++) {
-				this.tabuleiro[x][y] = Peca.VAZIO;
+				this.tabuleiro[x][y].setValor(Peca.VAZIO);
 			}
 		}
 	}
@@ -101,7 +118,7 @@ public class Tabuleiro {
 		
 		for (int x = 0; x < tabuleiro.length; x++) {
 			for (int y = 0; y < tabuleiro[x].length; y++) {
-				if (tabuleiro[x][y] == Peca.VAZIO) {
+				if (tabuleiro[x][y].getValor() == Peca.VAZIO) {
 					proximos.add(new int[] { x, y });
 				}
 			}
@@ -128,14 +145,14 @@ public class Tabuleiro {
 		Peca vencedor = null; // Peca.VAZIO;
 		
 		for (int x = 0; x < tabuleiro.length; x++) {
-            if (temGanhador(tabuleiro[x][0], tabuleiro[x][1], tabuleiro[x][2])) { //vertical win
-                vencedor = tabuleiro[x][0];
-            } else if (temGanhador(tabuleiro[0][x], tabuleiro[1][x], tabuleiro[2][x])) { //horizontal win
-                vencedor = tabuleiro[0][x];
-            } else if (temGanhador(tabuleiro[0][0], tabuleiro[1][1], tabuleiro[2][2])) { //diagonal win
-                vencedor = tabuleiro[0][0];
-            } else if (temGanhador(tabuleiro[0][2], tabuleiro[1][1], tabuleiro[2][0])) { //diagonal win
-                vencedor = tabuleiro[0][2];
+            if (temGanhador(tabuleiro[x][0].getValor(), tabuleiro[x][1].getValor(), tabuleiro[x][2].getValor())) { //vertical win
+                vencedor = tabuleiro[x][0].getValor();
+            } else if (temGanhador(tabuleiro[0][x].getValor(), tabuleiro[1][x].getValor(), tabuleiro[2][x].getValor())) { //horizontal win
+                vencedor = tabuleiro[0][x].getValor();
+            } else if (temGanhador(tabuleiro[0][0].getValor(), tabuleiro[1][1].getValor(), tabuleiro[2][2].getValor())) { //diagonal win
+                vencedor = tabuleiro[0][0].getValor();
+            } else if (temGanhador(tabuleiro[0][2].getValor(), tabuleiro[1][1].getValor(), tabuleiro[2][0].getValor())) { //diagonal win
+                vencedor = tabuleiro[0][2].getValor();
             }
 		}
 		
@@ -153,13 +170,60 @@ public class Tabuleiro {
 	private boolean temVazio() {
 		for (int x = 0; x < tabuleiro.length; x++) {
 			for (int y = 0; y < tabuleiro[x].length; y++) {
-				if (tabuleiro[x][y] == Peca.VAZIO) {
+				if (tabuleiro[x][y].getValor() == Peca.VAZIO) {
 					return true;
 				}
 			}
 		}
 		
 		return false;
+	}
+	
+	public void lerTabuleiro() {
+		
+		mover('f');
+			
+		mover('d');
+		tabuleiro[2][2].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('d');
+		tabuleiro[1][2].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('d');
+		tabuleiro[0][2].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('d');
+		tabuleiro[0][1].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('d');
+		tabuleiro[0][0].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('d');
+		tabuleiro[1][0].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('d');
+		tabuleiro[2][0].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('d');
+		tabuleiro[2][1].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('f');
+		tabuleiro[1][1].setValor(Peca.getByValor(color.getColorID())); //ler
+		mover('t');
+		mover('t');
+	}
+	
+	public void mover(char direcao) {
+		switch (direcao) {
+		case 'f':
+			//Mover pra frente
+			break;
+		case 't':
+			//mover pra trás
+			break;
+		case 'e':
+			//Mover pra esquerda
+			break;
+		case 'd':
+			//mover pra direita
+			break;
+		case 'x':
+			//soltar a bolinha (dar um giro de 360 graus no motor)
+			Motor.A.rotate(360);
+			break;
+		}
 	}
 
 	@Override
@@ -171,9 +235,9 @@ public class Tabuleiro {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				c = '-';
 				
-				if (this.tabuleiro[i][j] == Peca.COMPUTADOR)
+				if (this.tabuleiro[i][j].getValor() == Peca.COMPUTADOR)
 					c = 'O';
-				else if (this.tabuleiro[i][j] == Peca.JOGADOR)
+				else if (this.tabuleiro[i][j].getValor() == Peca.JOGADOR)
 					c = 'X';
 				
 				str.append("[" + c + "]");

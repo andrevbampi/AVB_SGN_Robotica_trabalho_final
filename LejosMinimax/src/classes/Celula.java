@@ -1,17 +1,22 @@
+package classes;
+import minimax.Peca;
 
 public class Celula {
-	private int valor;
+	private Peca valor;
 	private char[] caminho;
-	
-	public int getValor() {
+
+	public Peca getValor() {
 		return valor;
 	}
-	public void setValor(int valor) {
+
+	public void setValor(Peca valor) {
 		this.valor = valor;
 	}
+
 	public char[] getCaminho() {
 		return caminho;
 	}
+
 	public void setCaminho(char[] caminho) {
 		this.caminho = caminho;
 	}

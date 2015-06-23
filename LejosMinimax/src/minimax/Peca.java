@@ -26,6 +26,6 @@ public enum Peca {
 			}
 		}
 		
-		return null;
+		return VAZIO;
 	}
 }
