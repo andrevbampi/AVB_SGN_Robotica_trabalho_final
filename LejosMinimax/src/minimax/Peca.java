@@ -10,9 +10,9 @@ public enum Peca {
 
 	VAZIO(0),
 	
-	JOGADOR(1),
+	JOGADOR(2),
 	
-	COMPUTADOR(2);
+	COMPUTADOR(1);
 	
 	public int valorPeca;
 	Peca(int valor) {
