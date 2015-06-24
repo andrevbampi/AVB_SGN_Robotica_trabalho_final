@@ -90,7 +90,7 @@ public class Tabuleiro {
 	public void zerarTabuleiro() {
 		for (int x = 0, len = this.tabuleiro.length; x < len; x++) {
 			for (int y = 0, lenY = this.tabuleiro[x].length; y < lenY; y++) {
-				this.tabuleiro[x][y].setValor(Peca.VAZIO);
+				this.tabuleiro[x][y] = new Celula();
 			}
 		}
 	}
@@ -209,19 +209,25 @@ public class Tabuleiro {
 		switch (direcao) {
 		case 'f':
 			//Mover pra frente
+			frente();
 			break;
 		case 't':
 			//mover pra trás
+			pratras();
 			break;
 		case 'e':
 			//Mover pra esquerda
+			Motor.C.rotate(-45);
 			break;
 		case 'd':
 			//mover pra direita
+			Motor.C.rotate(45);
 			break;
 		case 'x':
 			//soltar a bolinha (dar um giro de 360 graus no motor)
+//			frente();
 			Motor.A.rotate(360);
+//			pratras();
 			break;
 		}
 	}
@@ -247,5 +253,35 @@ public class Tabuleiro {
 		}
 		
 		return str.toString();
+	}
+
+	public void frente() {
+		Motor.B.setSpeed(100);
+
+		try {
+			Motor.B.forward();
+
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Motor.B.stop();
+		}
+	}
+
+	public void pratras() {
+		Motor.B.setSpeed(100);
+
+		try {
+			Motor.B.backward();
+
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Motor.B.stop();
+		}
 	}
 }

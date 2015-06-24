@@ -8,9 +8,9 @@ package minimax;
  */
 public enum Peca {
 
-	VAZIO(0),
+	VAZIO(99),
 	
-	JOGADOR(2),
+	JOGADOR(0),
 	
 	COMPUTADOR(1);
 	

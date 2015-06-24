@@ -2,7 +2,7 @@ package classes;
 import minimax.Peca;
 
 public class Celula {
-	private Peca valor;
+	private Peca valor = Peca.VAZIO;
 	private char[] caminho;
 
 	public Peca getValor() {
