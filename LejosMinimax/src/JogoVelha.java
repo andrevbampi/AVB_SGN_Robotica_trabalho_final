@@ -59,9 +59,8 @@ public class JogoVelha {
 //			System.out.println(sonic.getDistance());
 //		}
 		
-		tabuleiro.proximoJogador();
-		
 		tabuleiro.lerTabuleiro();
+		tabuleiro.proximoJogador();
 		System.out.println("jog. fim");
 	}
 	

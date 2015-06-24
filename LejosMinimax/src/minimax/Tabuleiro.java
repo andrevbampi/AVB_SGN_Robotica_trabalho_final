@@ -22,7 +22,7 @@ public class Tabuleiro {
 		zerarTabuleiro();
 
 		tabuleiro[0][0].setCaminho(new char[] {'f','e','e','e','x','d','d','d','t'});
-		tabuleiro[0][1].setCaminho(new char[] {'f','f','f','x','t','t','t'});
+		tabuleiro[0][1].setCaminho(new char[] {'f','e','e','e','e','x','d','d','d','d','t'});
 		tabuleiro[0][2].setCaminho(new char[] {'f','d','d','d','x','e','e','e','t'});
 		tabuleiro[1][0].setCaminho(new char[] {'f','e','e','x','d','d','t'});
 		tabuleiro[1][1].setCaminho(new char[] {'f','f','x','t','t'});
@@ -225,9 +225,9 @@ public class Tabuleiro {
 			break;
 		case 'x':
 			//soltar a bolinha (dar um giro de 360 graus no motor)
-//			frente();
+			frente();
 			Motor.A.rotate(360);
-//			pratras();
+			pratras();
 			break;
 		}
 	}
