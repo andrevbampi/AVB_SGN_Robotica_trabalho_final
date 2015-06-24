@@ -44,8 +44,11 @@ public class JogoVelha {
 		}
 		
 		Peca vencedor = tabuleiro.getVencedor();
-		
-		System.out.println("Win: " + vencedor.toString());
+		if (vencedor == null) {
+			System.out.println("Deu Velha!");
+		} else {
+			System.out.println("Win: " + vencedor.toString());
+		}
 		
 		esperar();
 	}

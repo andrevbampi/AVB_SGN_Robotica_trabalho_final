@@ -65,7 +65,6 @@ public class MiniMax {
 		
 		for (int[] jogada : proximasJogadas) {
 			t.fazerJogada(jogada[0], jogada[1]);
-			t.proximoJogador();
 			
 			minimaxJogada = buscaMinimax(t, t.getJogadorAtual(), (profundidade + 1), alpha, beta);
 			
@@ -88,7 +87,6 @@ public class MiniMax {
 			}
 
 			t.desfazerUltimaJogada();
-			t.proximoJogador();
 			
 			if (alpha >= beta) break;
 		}
