@@ -28,13 +28,16 @@ public class JogoVelha {
 		
 		while (true) {
 			
-			jogadaJogador();
+			try {
+				jogadaJogador();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			imprimirTabuleiro();
 			
 			if (tabuleiro.fimJogo())
 				break;
-
-			esperar();
 			
 			jogadaLejos();
 			imprimirTabuleiro();
@@ -54,28 +57,33 @@ public class JogoVelha {
 	}
 
 	
-	private void jogadaJogador() {
-		System.out.println("jog. ini");
-		esperar();
+	private void jogadaJogador() throws InterruptedException {
+		System.out.println("JOGADOR SUA VEZ");
 		
-//		while (true) {
-//			System.out.println(sonic.getDistance());
-//		}
+		for (int i = 0; i < 4; i++) {
+			sonic.getDistance();
+			Thread.sleep(500);
+		}
+
+		// jogador ainda nao fez jogada
+		while (sonic.getDistance() > 30) {
+			Thread.sleep(500);
+		}
+		
+		// jogador esta fazendo a jogada
+		while (sonic.getDistance() < 30) {
+			Thread.sleep(500);
+		}
 		
 		tabuleiro.lerTabuleiro();
 		tabuleiro.proximoJogador();
-		System.out.println("jog. fim");
 	}
 	
 	private void jogadaLejos() {
-		System.out.println("lejos. ini");
 		MelhorJogada jogada = minimax.buscaMinimax(tabuleiro, Peca.COMPUTADOR, 0, Integer.MIN_VALUE, Integer.MAX_VALUE); 
 
-		System.out.println("x:" + jogada.getX() + " y:" + jogada.getY());
-		
 		tabuleiro.fazerJogada(jogada.getX(), jogada.getY());
 		colocarBolinha(jogada.getX(), jogada.getY());
-		System.out.println("lejos. fim");
 	}
 	
 	private void colocarBolinha(int x, int y) {

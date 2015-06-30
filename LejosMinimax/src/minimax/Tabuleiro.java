@@ -217,17 +217,19 @@ public class Tabuleiro {
 			break;
 		case 'e':
 			//Mover pra esquerda
+			Motor.C.setSpeed(150);
 			Motor.C.rotate(-45);
 			break;
 		case 'd':
 			//mover pra direita
+			Motor.C.setSpeed(150);
 			Motor.C.rotate(45);
 			break;
 		case 'x':
 			//soltar a bolinha (dar um giro de 360 graus no motor)
-			frente();
+			frente(360);
 			Motor.A.rotate(360);
-			pratras();
+			pratras(360);
 			break;
 		}
 	}
@@ -254,29 +256,36 @@ public class Tabuleiro {
 		
 		return str.toString();
 	}
-
+	
 	public void frente() {
+		frente(290);
+	}
+
+	public void frente(int sleep) {
 		Motor.B.setSpeed(100);
 
 		try {
 			Motor.B.forward();
 
-			Thread.sleep(300);
+			Thread.sleep(sleep);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Motor.B.stop();
 		}
 	}
-
+	
 	public void pratras() {
+		pratras(290);
+	}
+
+	public void pratras(int sleep) {
 		Motor.B.setSpeed(100);
 
 		try {
 			Motor.B.backward();
 
-			Thread.sleep(300);
+			Thread.sleep(sleep);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
