@@ -1,4 +1,5 @@
 package classes;
+
 import minimax.Peca;
 
 public class Celula {

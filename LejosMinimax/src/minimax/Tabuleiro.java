@@ -287,7 +287,6 @@ public class Tabuleiro {
 
 			Thread.sleep(sleep);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Motor.B.stop();

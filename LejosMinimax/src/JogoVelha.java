@@ -111,7 +111,6 @@ public class JogoVelha {
 
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Motor.B.stop();
@@ -126,7 +125,6 @@ public class JogoVelha {
 
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Motor.B.stop();
